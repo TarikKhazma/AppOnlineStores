@@ -35,8 +35,9 @@ class _ProductsPageState extends State<ProductsPage> {
           builder: (ctx, state) => ProductsBody(state: state),
         ),
         floatingActionButton: const ProductsFAB(),
-        bottomNavigationBar:
-            const SizedBox(height: AppSizes.navBarClearance),
+
+        /// Remove SizedBox
+        // bottomNavigationBar: const SizedBox(height: AppSizes.navBarClearance),
       ),
     );
   }
