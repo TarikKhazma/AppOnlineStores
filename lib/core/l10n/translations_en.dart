@@ -26,4 +26,60 @@ const Map<String, String> translationsEn = {
   'newLabel': 'NEW',
   'description': 'Description',
   'toggleLanguageLabel': 'عربي',
+
+  // Navigation
+  'home': 'Home',
+  'cart': 'Cart',
+  'favorites': 'Favorites',
+
+  // Cart
+  'addToCart': 'Add to Cart',
+  'removeFromCart': 'Remove',
+  'cartEmpty': 'Your cart is empty',
+  'cartEmptySubtitle': 'Add products to start shopping',
+  'checkout': 'Checkout',
+  'total': 'Total',
+  'subtotal': 'Subtotal',
+  'shipping': 'Shipping',
+  'free': 'Free',
+  'quantity': 'Qty',
+  'continueShopping': 'Continue Shopping',
+  'addedToCart': 'Added to cart!',
+  'removedFromCart': 'Removed from cart',
+
+  // Favorites
+  'addedToFavorites': 'Added to favorites!',
+  'removedFromFavorites': 'Removed from favorites',
+  'favoritesEmpty': 'No favorites yet',
+  'favoritesEmptySubtitle': 'Tap the heart icon to save products',
+
+  // Payment
+  'payment': 'Payment',
+  'paymentMethod': 'Payment Method',
+  'selectPaymentMethod': 'Select Payment Method',
+  'cash': 'Cash on Delivery',
+  'cashSubtitle': 'Pay when you receive your order',
+  'creditCard': 'Credit Card',
+  'creditCardSubtitle': 'Visa, Mastercard, or local cards',
+  'selectCountry': 'Select Country',
+  'country': 'Country',
+  'cardNumber': 'Card Number',
+  'cardHolder': 'Card Holder Name',
+  'expiryDate': 'Expiry Date',
+  'cvv': 'CVV',
+  'payNow': 'Pay Now',
+  'orderSummary': 'Order Summary',
+  'orderPlaced': 'Order Placed Successfully!',
+  'orderPlacedSubtitle': 'Thank you for your purchase',
+  'backToShopping': 'Back to Shopping',
+  'availableIn': 'Available in',
+
+  // Delivery
+  'deliveryDetails': 'Delivery Details',
+  'fullAddress': 'Full Address',
+  'houseNumber': 'House / Apt. No.',
+  'phoneNumber': 'Phone Number',
+  'email': 'Email Address',
+  'invalidPhone': 'Enter a valid phone number',
+  'invalidEmail': 'Enter a valid email address',
 };

@@ -26,4 +26,60 @@ const Map<String, String> translationsAr = {
   'newLabel': 'جديد',
   'description': 'الوصف',
   'toggleLanguageLabel': 'EN',
+
+  // Navigation
+  'home': 'الرئيسية',
+  'cart': 'السلة',
+  'favorites': 'المفضلة',
+
+  // Cart
+  'addToCart': 'أضف للسلة',
+  'removeFromCart': 'إزالة',
+  'cartEmpty': 'سلة التسوق فارغة',
+  'cartEmptySubtitle': 'أضف منتجات لبدء التسوق',
+  'checkout': 'الدفع',
+  'total': 'الإجمالي',
+  'subtotal': 'المجموع الفرعي',
+  'shipping': 'الشحن',
+  'free': 'مجاناً',
+  'quantity': 'الكمية',
+  'continueShopping': 'مواصلة التسوق',
+  'addedToCart': 'تمت الإضافة للسلة!',
+  'removedFromCart': 'تمت الإزالة من السلة',
+
+  // Favorites
+  'addedToFavorites': 'تمت الإضافة للمفضلة!',
+  'removedFromFavorites': 'تمت الإزالة من المفضلة',
+  'favoritesEmpty': 'لا توجد مفضلة بعد',
+  'favoritesEmptySubtitle': 'اضغط على القلب لحفظ المنتجات',
+
+  // Payment
+  'payment': 'الدفع',
+  'paymentMethod': 'طريقة الدفع',
+  'selectPaymentMethod': 'اختر طريقة الدفع',
+  'cash': 'الدفع عند الاستلام',
+  'cashSubtitle': 'ادفع عند استلام طلبك',
+  'creditCard': 'بطاقة ائتمانية',
+  'creditCardSubtitle': 'فيزا، ماستركارد، أو بطاقات محلية',
+  'selectCountry': 'اختر الدولة',
+  'country': 'الدولة',
+  'cardNumber': 'رقم البطاقة',
+  'cardHolder': 'اسم حامل البطاقة',
+  'expiryDate': 'تاريخ الانتهاء',
+  'cvv': 'CVV',
+  'payNow': 'ادفع الآن',
+  'orderSummary': 'ملخص الطلب',
+  'orderPlaced': 'تم تقديم الطلب بنجاح!',
+  'orderPlacedSubtitle': 'شكراً لك على شرائك',
+  'backToShopping': 'العودة للتسوق',
+  'availableIn': 'متاح في',
+
+  // Delivery
+  'deliveryDetails': 'تفاصيل التوصيل',
+  'fullAddress': 'العنوان الكامل',
+  'houseNumber': 'رقم المنزل / الشقة',
+  'phoneNumber': 'رقم الهاتف',
+  'email': 'البريد الإلكتروني',
+  'invalidPhone': 'أدخل رقم هاتف صحيح',
+  'invalidEmail': 'أدخل بريد إلكتروني صحيح',
 };

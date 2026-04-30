@@ -10,15 +10,16 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'core/constants/app_string.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
+import 'features/cart/presentation/cubit/cart_cubit.dart';
+import 'features/favorites/presentation/cubit/favorites_cubit.dart';
 import 'features/language/cubit/language_cubit.dart';
+import 'features/main/presentation/pages/main_shell.dart';
 import 'features/products/presentation/cubit/product_cubit.dart';
-import 'features/products/presentation/pages/products_page.dart';
 import 'injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // SQLite FFI for Windows / Linux / macOS desktop
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
@@ -42,9 +43,9 @@ class OnlineStoreApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<ProductCubit>()),
-        BlocProvider(
-          create: (_) => LanguageCubit()..loadSavedLanguage(),
-        ),
+        BlocProvider(create: (_) => LanguageCubit()..loadSavedLanguage()),
+        BlocProvider(create: (_) => CartCubit()),
+        BlocProvider(create: (_) => FavoritesCubit()),
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
         builder: (context, locale) {
@@ -63,7 +64,7 @@ class OnlineStoreApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             builder: DevicePreview.appBuilder,
-            home: const ProductsPage(),
+            home: const MainShell(),
           );
         },
       ),

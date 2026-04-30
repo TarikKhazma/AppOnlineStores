@@ -58,6 +58,62 @@ class AppLocalizations {
 
   /// Label shown on the toggle button — always shows the OTHER language name.
   String get toggleLanguageLabel => _t['toggleLanguageLabel']!;
+
+  // Navigation
+  String get home => _t['home']!;
+  String get cart => _t['cart']!;
+  String get favorites => _t['favorites']!;
+
+  // Cart
+  String get addToCart => _t['addToCart']!;
+  String get removeFromCart => _t['removeFromCart']!;
+  String get cartEmpty => _t['cartEmpty']!;
+  String get cartEmptySubtitle => _t['cartEmptySubtitle']!;
+  String get checkout => _t['checkout']!;
+  String get total => _t['total']!;
+  String get subtotal => _t['subtotal']!;
+  String get shipping => _t['shipping']!;
+  String get free => _t['free']!;
+  String get quantity => _t['quantity']!;
+  String get continueShopping => _t['continueShopping']!;
+  String get addedToCart => _t['addedToCart']!;
+  String get removedFromCart => _t['removedFromCart']!;
+
+  // Favorites
+  String get addedToFavorites => _t['addedToFavorites']!;
+  String get removedFromFavorites => _t['removedFromFavorites']!;
+  String get favoritesEmpty => _t['favoritesEmpty']!;
+  String get favoritesEmptySubtitle => _t['favoritesEmptySubtitle']!;
+
+  // Payment
+  String get payment => _t['payment']!;
+  String get paymentMethod => _t['paymentMethod']!;
+  String get selectPaymentMethod => _t['selectPaymentMethod']!;
+  String get cash => _t['cash']!;
+  String get cashSubtitle => _t['cashSubtitle']!;
+  String get creditCard => _t['creditCard']!;
+  String get creditCardSubtitle => _t['creditCardSubtitle']!;
+  String get selectCountry => _t['selectCountry']!;
+  String get country => _t['country']!;
+  String get cardNumber => _t['cardNumber']!;
+  String get cardHolder => _t['cardHolder']!;
+  String get expiryDate => _t['expiryDate']!;
+  String get cvv => _t['cvv']!;
+  String get payNow => _t['payNow']!;
+  String get orderSummary => _t['orderSummary']!;
+  String get orderPlaced => _t['orderPlaced']!;
+  String get orderPlacedSubtitle => _t['orderPlacedSubtitle']!;
+  String get backToShopping => _t['backToShopping']!;
+  String get availableIn => _t['availableIn']!;
+
+  // Delivery
+  String get deliveryDetails => _t['deliveryDetails']!;
+  String get fullAddress => _t['fullAddress']!;
+  String get houseNumber => _t['houseNumber']!;
+  String get phoneNumber => _t['phoneNumber']!;
+  String get email => _t['email']!;
+  String get invalidPhone => _t['invalidPhone']!;
+  String get invalidEmail => _t['invalidEmail']!;
 }
 
 // Delegate

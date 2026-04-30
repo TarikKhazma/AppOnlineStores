@@ -5,6 +5,10 @@ import '../../../../core/constants/color.dart';
 import '../../../../core/constants/app_size.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_text_style.dart';
+import '../../../cart/presentation/cubit/cart_cubit.dart';
+import '../../../cart/presentation/cubit/cart_state.dart';
+import '../../../favorites/presentation/cubit/favorites_cubit.dart';
+import '../../../favorites/presentation/cubit/favorites_state.dart';
 import '../../../language/cubit/language_cubit.dart';
 import '../../domain/entities/product_entity.dart';
 import 'product_detail_sheet.dart';
@@ -28,15 +32,37 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildImageSection(context),
-            _buildInfoSection(),
+            _ImageSection(product: product, onDelete: onDelete),
+            _InfoSection(product: product),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildImageSection(BuildContext context) {
+  void _openDetail(BuildContext context) {
+    final languageCubit = context.read<LanguageCubit>();
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => BlocProvider.value(
+        value: languageCubit,
+        child: ProductDetailSheet(product: product),
+      ),
+    );
+  }
+}
+
+// Image Section 
+
+class _ImageSection extends StatelessWidget {
+  const _ImageSection({required this.product, required this.onDelete});
+  final ProductEntity product;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         Hero(
@@ -59,21 +85,27 @@ class ProductCard extends StatelessWidget {
             errorWidget: (_, _, _) => Container(
               height: AppSizes.cardImageHeight,
               color: AppColors.shimmer,
-              child: const Icon(
-                Icons.broken_image_outlined,
-                color: AppColors.textLight,
-              ),
+              child: const Icon(Icons.broken_image_outlined,
+                  color: AppColors.textLight),
             ),
           ),
         ),
+        // Delete
         Positioned(
           top: AppSizes.xs,
           right: AppSizes.xs,
           child: _DeleteButton(onPressed: onDelete),
         ),
+        // Favorite
+        Positioned(
+          top: AppSizes.xs,
+          left: AppSizes.xs,
+          child: _FavoriteButton(product: product),
+        ),
+        // NEW badge
         if (product.isLocal)
           Positioned(
-            top: AppSizes.xs,
+            bottom: AppSizes.xs,
             left: AppSizes.xs,
             child: _Badge(
               label: context.l10n.newLabel,
@@ -83,8 +115,16 @@ class ProductCard extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _buildInfoSection() {
+//Info Section
+
+class _InfoSection extends StatelessWidget {
+  const _InfoSection({required this.product});
+  final ProductEntity product;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(AppSizes.sm),
       child: Column(
@@ -104,62 +144,120 @@ class ProductCard extends StatelessWidget {
               const SizedBox(width: 2),
               Text(
                 product.ratingRate.toStringAsFixed(1),
-                style: AppTextStyles.caption
-                    .copyWith(fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                style: AppTextStyles.caption.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textSecondary),
               ),
               const SizedBox(width: 3),
-              Text('(${product.ratingCount})', style: AppTextStyles.caption),
+              Text('(${product.ratingCount})',
+                  style: AppTextStyles.caption),
             ],
           ),
           const SizedBox(height: AppSizes.xs),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                '\$${product.price.toStringAsFixed(2)}',
-                style: AppTextStyles.price,
-              ),
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizes.xs, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryLight,
-                    borderRadius: BorderRadius.circular(AppSizes.radiusXs),
-                  ),
-                  child: Text(
-                    product.category,
-                    style: AppTextStyles.caption.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
+              Text('\$${product.price.toStringAsFixed(2)}',
+                  style: AppTextStyles.price),
+              _AddToCartButton(product: product),
             ],
           ),
         ],
       ),
     );
   }
+}
 
-  void _openDetail(BuildContext context) {
-    final languageCubit = context.read<LanguageCubit>();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => BlocProvider.value(
-        value: languageCubit,
-        child: ProductDetailSheet(product: product),
-      ),
+//Favorite Button 
+
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton({required this.product});
+  final ProductEntity product;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
+      builder: (context, state) {
+        final isFav = state.isFavorite(product.id);
+        return GestureDetector(
+          onTap: () {
+            context.read<FavoritesCubit>().toggle(product);
+            final l10n = context.l10n;
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text(
+                    isFav ? l10n.removedFromFavorites : l10n.addedToFavorites),
+                duration: const Duration(seconds: 2),
+                backgroundColor:
+                    isFav ? AppColors.textSecondary : AppColors.primary,
+              ));
+          },
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.9),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 4)
+              ],
+            ),
+            child: Icon(
+              isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+              color: isFav ? Colors.red : AppColors.textLight,
+              size: AppSizes.iconSm,
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-// ─── Sub-widgets ─────────────────────────────────────────────────────────────
+// Add to Cart Button 
+
+class _AddToCartButton extends StatelessWidget {
+  const _AddToCartButton({required this.product});
+  final ProductEntity product;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        final inCart = state.isInCart(product.id);
+        return GestureDetector(
+          onTap: () {
+            context.read<CartCubit>().addToCart(product);
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text(context.l10n.addedToCart),
+                duration: const Duration(seconds: 2),
+                backgroundColor: AppColors.success,
+              ));
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.all(AppSizes.xs),
+            decoration: BoxDecoration(
+              color: inCart ? AppColors.success : AppColors.primary,
+              borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+            ),
+            child: Icon(
+              inCart ? Icons.check_rounded : Icons.add_shopping_cart_rounded,
+              color: Colors.white,
+              size: AppSizes.iconSm,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// Sub-widgets
 
 class _DeleteButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -200,8 +298,8 @@ class _Badge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.xs, vertical: 2),
+      padding:
+          const EdgeInsets.symmetric(horizontal: AppSizes.xs, vertical: 2),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(AppSizes.radiusXs),

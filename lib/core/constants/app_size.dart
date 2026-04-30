@@ -1,5 +1,5 @@
 class AppSizes {
-  // Spacing & Padding 
+  // Spacing & Padding
   static const double xs = 4.0;
   static const double sm = 8.0;
   static const double md = 16.0;
@@ -24,14 +24,14 @@ class AppSizes {
   static const double iconXl = 48.0;
   static const double iconXxl = 80.0;
 
-  // Card 
+  // Card
   static const double cardElevation = 3.0;
   static const double cardImageHeight = 150.0;
 
-  // AppBar 
+  // AppBar
   static const double appBarHeight = 60.0;
 
-  // Font Sizes 
+  // Font Sizes
   static const double fontXs = 10.0;
   static const double fontSm = 12.0;
   static const double fontMd = 14.0;
@@ -40,16 +40,19 @@ class AppSizes {
   static const double fontXxl = 22.0;
   static const double fontDisplay = 28.0;
 
-  // Grid 
+  // Grid
   static const int gridCrossAxisCount = 2;
   static const double gridSpacing = 12.0;
 
-  // Button 
+  // Button
   static const double buttonHeight = 52.0;
   static const double buttonRadius = 12.0;
 
-  //  Bottom Sheet 
+  //  Bottom Sheet
   static const double bottomSheetRadius = 28.0;
   static const double handleWidth = 40.0;
   static const double handleHeight = 4.0;
+
+  // Floating Nav Bar — minimum bottom clearance so content isn't hidden
+  static const double navBarClearance = 100.0;
 }
